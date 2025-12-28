@@ -1,0 +1,22 @@
+[project]
+name = "kelson"
+version = "0.1.0"
+description = "A highly opinionated, batteries-included framework for Machine Learning."
+requires-python = ">=3.9"
+dependencies = [
+    "typer[all]",
+    "rich",
+    "pydantic",
+    "pyyaml"
+]
+
+[project.scripts]
+kelson = "kelson.main:app"
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["kelson"]
+include-package-data = true

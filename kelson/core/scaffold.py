@@ -90,7 +90,7 @@ include = ["app*"]
     def _create_readme(self):
         content = f"""# {self.project_name}
 
-Powered by [Kelson](https://github.com/kelson-ml/kelson) - A highly opinionated Machine Learning framework.
+Powered by [Kelson](https://github.com/LPMatrix/kelson) - A highly opinionated Machine Learning framework.
 """
         with open(self.base_path / "README.md", "w") as f:
             f.write(content)
@@ -111,6 +111,21 @@ storage:
 """
         with open(config_path, "w") as f:
             f.write(content)
+
+        # Create ml.yaml for hyperparameters
+        ml_config_path = self.base_path / "config" / "ml.yaml"
+        ml_content = """models:
+        # Default configuration for models
+        # ModelName:
+        #   learning_rate: 0.001
+        #   batch_size: 32
+
+        paths:
+        raw: "database/datasets/raw"
+        processed: "database/datasets/processed"
+        """
+        with open(ml_config_path, "w") as f:
+            f.write(ml_content)
 
     def _create_base_model(self):
         # We also need to ensure the user has the BaseModel definition available. 

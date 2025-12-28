@@ -25,47 +25,17 @@ def make_model(name: str = typer.Argument(..., help="The name of the model class
         console.print(f"[bold red]Error:[/bold red] Model {name} already exists at {file_path}.")
         raise typer.Exit(code=1)
 
-    template = f"""from kelson.core.model import BaseModel
-from typing import Any
+    stub_path = Path(__file__).parent.parent / "stubs" / "model.stub"
+    if not stub_path.exists():
+        console.print(f"[bold red]Error:[/bold red] Stub file not found at {stub_path}.")
+        raise typer.Exit(code=1)
 
-class {name}(BaseModel):
-    \"\"\"
-    {name} model definition.
-    \"\"\"
-    # Define hyperparameters as Pydantic fields
-    learning_rate: float = 0.001
-    batch_size: int = 32
-
-    def load_data(self) -> Any:
-        \"\"\"
-        Load data for the model.
-        \"\"\"
-        # TODO: Implement data loading
-        pass
-
-    def transform(self, data: Any) -> Any:
-        \"\"\"
-        Preprocess the data.
-        \"\"\"
-        # TODO: Implement data transformation
-        return data
-
-    def build(self) -> Any:
-        \"\"\"
-        Build the model architecture.
-        \"\"\"
-        # TODO: Return your model (e.g. sklearn, torch, tensorflow)
-        pass
-
-    def fit(self, data: Any) -> Any:
-        \"\"\"
-        Train the model.
-        \"\"\"
-        # TODO: Implement training loop
-        pass
-"""
+    with open(stub_path, "r") as f:
+        content = f.read()
+    
+    content = content.replace("{{ class_name }}", name)
     
     with open(file_path, "w") as f:
-        f.write(template)
+        f.write(content)
 
     console.print(f"[bold green]Success![/bold green] Model [bold white]{name}[/bold white] created at [underline]{file_path}[/underline].")

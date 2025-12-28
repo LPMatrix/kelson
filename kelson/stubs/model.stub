@@ -1,0 +1,52 @@
+from kelson.core.model import BaseModel
+from typing import Any
+from kelson.core.config import Config
+
+class {{ class_name }}(BaseModel):
+    """
+    {{ class_name }} model definition.
+    """
+    # Define hyperparameters as Pydantic fields
+    # Values will be overridden by config/ml.yaml if present
+    learning_rate: float = 0.001
+    batch_size: int = 32
+
+    def load_data(self) -> Any:
+        """
+        Load data for the model.
+        """
+        # Access paths from config
+        # raw_path = Config.get("ml.paths.raw")
+        pass
+
+    def transform(self, data: Any) -> Any:
+        """
+        Preprocess the data.
+        """
+        # TODO: Implement data transformation
+        return data
+
+    def build(self) -> Any:
+        """
+        Build the model architecture.
+        """
+        # TODO: Return your model (e.g. sklearn, torch, tensorflow)
+        pass
+
+    def fit(self, data: Any) -> Any:
+        """
+        Train the model.
+        """
+        # Example training loop
+        # epochs = 10
+        # for epoch in range(epochs):
+        #     # ... training logic ...
+        #     loss = 0.5 - (epoch * 0.04)
+        #     accuracy = 0.5 + (epoch * 0.05)
+        #     
+        #     # Log metrics to dashboard
+        #     self.log({"epoch": epoch + 1, "loss": loss, "accuracy": accuracy})
+        #     
+        #     import time
+        #     time.sleep(0.5) # Simulate work
+        pass
